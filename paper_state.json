@@ -1,5 +1,13 @@
 {
-  "balance": 1000.0,
-  "positions": {},
+  "balance": 980.0,
+  "positions": {
+    "Big1krPP8QUkgg5fsfEZQmeuwAViNajzAxNhNYvXaSS1": {
+      "symbol": "BTC",
+      "entry_price": 8.375e-05,
+      "quantity": 238805.97014925373,
+      "invested": 20.0,
+      "opened_at": "2026-11-09T09:42:49.258064+00:00"
+    }
+  },
   "history": []
 }
