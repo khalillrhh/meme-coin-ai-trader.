@@ -9,36 +9,23 @@ from paper_trader import (
     update_positions,
     portfolio_summary
 )
+from telegram_bot import send_telegram
+from datetime import datetime, timezone
 
 def main():
-    print("=" * 45)
-    print("MEME COIN AI TRADER")
-    print("PAPER TRADING MODE")
-    print("=" * 45)
-
     state = load_state()
-
-    # 1. Scan market
     coins = scan_solana()
-    print("Coins discovered:", len(coins))
 
-    # 2. Update existing positions
     update_positions(state, coins)
 
-    # 3. Analyze and filter coins
+    opportunities = []
+
     for coin in coins:
         analysis = analyze_coin(coin)
-
-        print(
-            coin["symbol"],
-            "Score:", analysis["score"],
-            "Status:", analysis["status"]
-        )
 
         if analysis["status"] != "WATCH":
             continue
 
-        # 4. Risk management
         allowed, reason = check_risk(
             coin,
             state["positions"],
@@ -47,15 +34,24 @@ def main():
 
         if allowed:
             open_trade(state, coin)
-            print("Decision: PAPER BUY")
-        else:
-            print("Decision: SKIP -", reason)
+            opportunities.append(
+                f'{coin["symbol"]} | Score: {analysis["score"]}/100'
+            )
 
-    # 5. Save and report
     save_state(state)
-    portfolio_summary(state)
 
-    print("Scan finished successfully.")
+    summary = (
+        "MEME COIN PAPER TRADER\n"
+        f"Time: {datetime.now(timezone.utc)}\n"
+        f"Coins scanned: {len(coins)}\n"
+        f"Virtual balance: ${state['balance']:.2f}\n"
+        f"Open positions: {len(state['positions'])}\n"
+        f"Opportunities: {len(opportunities)}\n\n"
+        + "\n".join(opportunities[:10])
+    )
+
+    print(summary)
+    send_telegram(summary)
 
 if __name__ == "__main__":
     main()
