@@ -1,5 +1,5 @@
 {
-  "balance": 980.0,
+  "balance": 900.0,
   "positions": {
     "Big1krPP8QUkgg5fsfEZQmeuwAViNajzAxNhNYvXaSS1": {
       "symbol": "BTC",
@@ -7,6 +7,34 @@
       "quantity": 238805.97014925373,
       "invested": 20.0,
       "opened_at": "2026-11-09T09:42:49.258064+00:00"
+    },
+    "2HbbwKyQqRE2mhhPXd48ehYpGQufY2xGe5vTQaZTpump": {
+      "symbol": "CAT",
+      "entry_price": 0.00013,
+      "quantity": 153846.15384615387,
+      "invested": 20.0,
+      "opened_at": "2026-11-09T20:31:57.043191+00:00"
+    },
+    "BSwp4GjLnejXKqvmjueJmPXC7UZhNoF6RuMQJRpSmeta": {
+      "symbol": "SAT",
+      "entry_price": 0.008629,
+      "quantity": 2317.7656738903697,
+      "invested": 20.0,
+      "opened_at": "2026-11-09T20:31:57.043232+00:00"
+    },
+    "HV18rA55qBXWmdy44AiEV58nkNb2qMLbRECfeB1fpump": {
+      "symbol": "ALICE",
+      "entry_price": 0.0001476,
+      "quantity": 135501.3550135501,
+      "invested": 20.0,
+      "opened_at": "2026-11-09T20:31:57.043243+00:00"
+    },
+    "FNxVZo25dGerP4Tw49f4aHg9xac5qw1FER9F7EzK9cTs": {
+      "symbol": "HWAN",
+      "entry_price": 0.0002254,
+      "quantity": 88731.14463176575,
+      "invested": 20.0,
+      "opened_at": "2026-11-09T20:31:57.043249+00:00"
     }
   },
   "history": []
