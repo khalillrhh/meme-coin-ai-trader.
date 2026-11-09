@@ -12,8 +12,10 @@ from paper_trader import (
 from telegram_bot import send_telegram
 from datetime import datetime, timezone
 
+
 def main():
     state = load_state()
+
     coins = scan_solana()
 
     update_positions(state, coins)
@@ -34,11 +36,14 @@ def main():
 
         if allowed:
             open_trade(state, coin)
+
             opportunities.append(
                 f'{coin["symbol"]} | Score: {analysis["score"]}/100'
             )
 
     save_state(state)
+
+    portfolio_summary(state)
 
     summary = (
         "MEME COIN PAPER TRADER\n"
@@ -46,12 +51,14 @@ def main():
         f"Coins scanned: {len(coins)}\n"
         f"Virtual balance: ${state['balance']:.2f}\n"
         f"Open positions: {len(state['positions'])}\n"
+        f"Closed trades: {len(state['history'])}\n"
         f"Opportunities: {len(opportunities)}\n\n"
         + "\n".join(opportunities[:10])
     )
 
     print(summary)
     send_telegram(summary)
+
 
 if __name__ == "__main__":
     main()
