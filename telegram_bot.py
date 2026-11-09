@@ -2,6 +2,7 @@
 import os
 import requests
 
+
 def send_telegram(message):
     token = os.getenv("TELEGRAM_BOT_TOKEN")
     chat_id = os.getenv("TELEGRAM_CHAT_ID")
@@ -15,13 +16,22 @@ def send_telegram(message):
     try:
         response = requests.post(
             url,
-            data={
+            json={
                 "chat_id": chat_id,
                 "text": message
             },
             timeout=20
         )
+
         response.raise_for_status()
+
+        result = response.json()
+
+        if not result.get("ok"):
+            print("Telegram API rejected message")
+            return False
+
+        print("Telegram message sent successfully")
         return True
 
     except requests.RequestException as error:
