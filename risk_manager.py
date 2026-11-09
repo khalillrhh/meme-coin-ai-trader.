@@ -6,10 +6,14 @@ MAX_PORTFOLIO_RISK = 0.10
 MIN_LIQUIDITY = 10000
 MIN_VOLUME_24H = 5000
 
+
 def check_risk(coin, open_positions, cash_balance):
-    liquidity = float(coin.get("liquidity", 0))
-    volume = float(coin.get("volume_24h", 0))
-    price = float(coin.get("price", 0) or 0)
+    try:
+        liquidity = float(coin.get("liquidity") or 0)
+        volume = float(coin.get("volume_24h") or 0)
+        price = float(coin.get("price") or 0)
+    except (ValueError, TypeError):
+        return False, "Invalid market data"
 
     if price <= 0:
         return False, "Invalid price"
@@ -22,6 +26,14 @@ def check_risk(coin, open_positions, cash_balance):
 
     if len(open_positions) >= MAX_OPEN_POSITIONS:
         return False, "Maximum positions reached"
+
+    address = coin.get("address")
+
+    if not address:
+        return False, "Missing token address"
+
+    if address in open_positions:
+        return False, "Position already exists"
 
     if cash_balance < MAX_TRADE_SIZE:
         return False, "Insufficient virtual balance"
